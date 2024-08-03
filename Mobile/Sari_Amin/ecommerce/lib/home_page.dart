@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'add_update_page.dart';
+import 'search_page.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -21,6 +23,7 @@ class ProductListScreen extends StatelessWidget {
             icon: Icon(Icons.search),
             onPressed: () {
               // Handle search action
+              Navigator.of(context).pushNamed('/search_page.dart');
             },
           ),
         ],
@@ -34,6 +37,7 @@ class ProductListScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Handle add new product action
+          Navigator.of(context).pushNamed('/add_upate_page.dart');
         },
         child: Icon(Icons.add),
       ),
