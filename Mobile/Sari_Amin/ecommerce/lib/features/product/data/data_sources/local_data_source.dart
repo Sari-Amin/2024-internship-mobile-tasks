@@ -9,6 +9,8 @@ abstract class ProductLocalDataSource {
   Future<void> deleteProduct(String id);
 }
 
+const CACHED_PRODUCT = 'CACHED_PRODUCT';
+
 class ProductLocalDataSourceImpl extends ProductLocalDataSource {
   final SharedPreferences sharedPreferences;
 

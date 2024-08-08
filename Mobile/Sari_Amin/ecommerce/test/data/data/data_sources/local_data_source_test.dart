@@ -30,8 +30,8 @@ void main() {
           .thenReturn(readJson('product_cached.json'));
 
       final result = await dataSource.getProductById(testId);
-      verify(mockSharedPreferences.getString());
-      expect(result, equals(testProductModel.))
+      verify(mockSharedPreferences.getString(CACHED_PRODUCT));
+      expect(result, equals(testProductModel));
     });
   });
 }
