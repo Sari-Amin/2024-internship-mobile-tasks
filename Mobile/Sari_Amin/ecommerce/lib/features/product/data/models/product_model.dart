@@ -1,34 +1,74 @@
-import 'dart:nativewrappers/_internal/vm/lib/core_patch.dart';
+import '../../domain/entities/product_entity.dart';
 
-import '../../domian/entities/product_entity.dart';
-
-class ProductModel {
+class ProductModel extends ProductEntity {
   const ProductModel({
+    required String id,
     required String name,
-    required int price,
-    required int id,
-    required String imageUrl,
     required String description,
+    required String imageUrl,
+    required dynamic price,
   }) : super(
           id: id,
           name: name,
-          price: price,
-          imageUrl: imageUrl,
           description: description,
+          imageUrl: imageUrl,
+          price: price,
         );
 
-  factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
-      name: name,
-      price: price,
-      id: id,
-      imageUrl: imageUrl,
-      description: description);
-  ProductEntity toEntity() => ProductEntity(
-      id: id,
-      description: description,
-      imageUrl: imageUrl,
-      name: name,
-      price: price);
+  factory ProductModel.fromJsonData(Map<String, dynamic> json) => ProductModel(
+        id: json['data']['id'],
+        name: json['data']['name'],
+        description: json['data']['description'],
+        imageUrl: json['data']['imageUrl'],
+        price: json['data']['price'],
+      );
 
-  static Future<ProductModel?> forLocalJson(decode) {}
+  factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
+        id: json['id'],
+        name: json['name'],
+        description: json['description'],
+        imageUrl: json['imageUrl'],
+        price: json['price'],
+      );
+
+  static ProductModel fromEntity(ProductEntity entity) {
+    return ProductModel(
+      id: entity.id,
+      name: entity.name,
+      description: entity.description,
+      imageUrl: entity.imageUrl,
+      price: entity.price,
+    );
+  }
+
+  factory ProductModel.forLocalJson(Map<String, dynamic> json) => ProductModel(
+        id: json['id'],
+        name: json['name'],
+        description: json['description'],
+        imageUrl: json['imageUrl'],
+        price: json['price'] as int,
+      );
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'description': description,
+        'imageUrl': imageUrl,
+        'price': price,
+      };
+
+  Map<String, String> toMap() => {
+        'id': id,
+        'name': name,
+        'description': description,
+        'imageUrl': imageUrl,
+        'price': '$price',
+      };
+
+  ProductEntity toEntity() => ProductEntity(
+        id: id,
+        name: name,
+        description: description,
+        imageUrl: imageUrl,
+        price: price,
+      );
 }
